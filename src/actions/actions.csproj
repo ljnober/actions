@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>    
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+<ItemGroup>
+    <PackgeReference Include="Velopack"   />
+    <PackgeReference Include="CommunityToolkit.Diagnostics"/>
+    <PackgeReference Include="CommunityToolkit.Mvvm" />
+    <PackgeReference Include="CommunityToolkit.WinUI.Notifications"/> 
+</ItemGroup>
+
+</Project>
