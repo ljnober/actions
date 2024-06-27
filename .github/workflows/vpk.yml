@@ -59,25 +59,9 @@ jobs:
 
     env:
       SOLUTION_FILE_PATH: ./src/actions.sln
+      APP_VERSION: github.event.ref.replace('refs/tags/', '')[1:] 
 
-    steps:
-    - name: Get version
-      id: get_version
-      uses: actions/github-script@v6
-      with:
-        script: |
-          # Get the tag name that triggered the workflow
-          github.event.ref = github.event.ref.replace('refs/tags/', '')
-          version = github.event.ref
-
-          # Remove the 'v' prefix from the version number
-          version_without_v = version[1:]
-
-          # Set the output variable VERSION with the version number
-          core.setOutput('VERSION', version)
-
-          # Set the output variable VERSION_WITHOUT_V with the version number without the 'v' prefix
-          core.setOutput('VERSION_WITHOUT_V', version_without_v) 
+    steps:    
     - name: Checkout
       uses: actions/checkout@v4
       with:
@@ -108,6 +92,6 @@ jobs:
       run: |
         dotnet tool install -g vpk
         vpk download github --repoUrl https://github.com/ljnober/actions
-        vpk pack -u actions -v ${{steps.get_version.outputs.VERSION}} -p publish
-        vpk upload github --repoUrl https://github.com/ljnober/actions --publish --releaseName "actions  ${{steps.get_version.outputs.VERSION}}" --tag v${{steps.get_version.outputs.VERSION}}
+        vpk pack -u actions -v ${{env.APP_VERSION}} -p publish
+        vpk upload github --repoUrl https://github.com/ljnober/actions --publish --releaseName "actions   ${{env.APP_VERSION}}" --tag v ${{env.APP_VERSION}}
 
