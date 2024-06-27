@@ -59,6 +59,7 @@ jobs:
 
     env:
       SOLUTION_FILE_PATH: ./src/actions.sln
+      PROJECT_FILE_PATH: ./src/actions/actions.csproj
       APP_VERSION: github.event.ref.replace('refs/tags/', '')[1:] 
 
     steps:    
@@ -87,7 +88,7 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}      
     - name: Publish the application
-      run: msbuild $env:SOLUTION_FILE_PATH /t:Publish /p:Configuration=$env:Configuration
+      run: msbuild $env:PROJECT_FILE_PATH /t:Publish /p:Configuration=$env:Configuration
     - name: Create Velopack Release
       run: |
         dotnet tool install -g vpk
